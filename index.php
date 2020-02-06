@@ -1,8 +1,16 @@
-<?php include "templates/header.php"; ?>
+<?php
+$root = $_SERVER["DOCUMENT_ROOT"];
+$path = $_SERVER['REQUEST_URI'];
 
-<ul>
-	<li><a href="create.php"><strong>Create</strong></a> - add a user</li>
-	<li><a href="read.php"><strong>Read</strong></a> - find a user</li>
-</ul>
+if ($path == "/")
+	$path = "home";
+if (substr($path, -1) == "/")
+	$path = substr($path, 1, -1);
 
-<?php include "templates/footer.php"; ?>
+$body = "$root/views/$path.php";
+if (!file_exists($body)) {
+	$body = "$root/views/404.php";
+}
+
+require "$root/templates/layout.php";
+?>
