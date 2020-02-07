@@ -13,4 +13,5 @@ if (!file_exists($body)) {
 }
 
 require "$root/templates/layout.php";
+
 ?>
