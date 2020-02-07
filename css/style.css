@@ -1,15 +1,43 @@
+header {
+	border-bottom: 1px solid black;
+	width: 111%;
+	margin-left: -1%;
+	padding-left: 20%;
+}
+
+.success {
+ 	border: thin solid green;
+	border-radius: 7px;
+	background: lightgreen;
+	padding: 2%;
+	width: 50%;
+}
+
+form div {
+	display: flex;
+	flex-direction: column;
+	margin: 2% 0;
+}
+
 label {
-	display: block;
-	margin: 5px 0;
+	font-weight: bold;
 }
 
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+#body {
+	margin: auto;
+	width: 50%;
 }
 
-td,
-th {
-	padding: 5px;
-	border-bottom: 1px solid #aaa;
+input[type=text], input[type=date] {
+	width: 50%;
+	height: 20px;
+}
+
+input[type=submit] {
+	margin-top: 7%;
+	width: 20%;
+}
+
+footer {
+	
 }
