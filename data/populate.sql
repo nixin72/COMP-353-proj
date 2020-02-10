@@ -358,4 +358,4 @@ INSERT INTO previous_teams (tid, pid, start_date, end_date) VALUES (@leafsId, 18
 INSERT INTO previous_teams (tid, pid, start_date, end_date) VALUES (@oilId, 23, '2013-01-01', '2017-12-31');
 INSERT INTO previous_teams (tid, pid, start_date, end_date) VALUES (@vanId, 28, '2015-01-01', '2016-12-31');
 INSERT INTO previous_teams (tid, pid, start_date, end_date) VALUES (@flameId, 33, '2008-01-01', '2014-12-31');
-INSERT INTO previous_teams (tid, pid, start_date, end_date) VALUES (@jetsId, 3s, '2017-01-01', '2018-12-31');
+INSERT INTO previous_teams (tid, pid, start_date, end_date) VALUES (@jetsId, 3, '2017-01-01', '2018-12-31');
