@@ -28,7 +28,7 @@ label {
 	width: 50%;
 }
 
-input[type=text], input[type=date] {
+input[type=text], input[type=date], input[type=number] {
 	width: 50%;
 	height: 20px;
 }
@@ -36,6 +36,12 @@ input[type=text], input[type=date] {
 input[type=submit] {
 	margin-top: 7%;
 	width: 20%;
+}
+
+#submit-area {
+	display: flex;
+	flex-direction: row;
+
 }
 
 footer {

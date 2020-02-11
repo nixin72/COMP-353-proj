@@ -1,1 +1,1 @@
-<h1>Simple Database App</h1>
+<h1><a href="home">Simple Database App</a></h1>
