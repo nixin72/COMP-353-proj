@@ -1,9 +1,8 @@
 <h1>Add Player to Database</h1>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Add to database
-
+if (isset($_POST["create"])) {
+    // Make CREATE query
     ?>
     <div class="success">
         Player added successfully!
@@ -38,7 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="date" name="start-date">
     </div>
 
-    <div>
-        <input type="submit" name="submit" value="Add Player">
+    <div id="submit-area">
+        <input type="submit" name="create" value="Add Player">
+        <input type="submit" name="find" value="Find Player">
     </div>
 </form>
+
+<?php
+if (isset($_POST["find"])) {
+   // Make SELECT query
+}
+?>
