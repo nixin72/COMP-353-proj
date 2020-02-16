@@ -1,0 +1,173 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\usetikzlibrary{er,positioning}
+
+\title{COMP-353: Warmup Project Documentation}
+\author{Insert Team Members}
+\date{February 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{(1) DESIGN:}
+ The E/R diagram of the design of the database given in the project description (or a revised version, if deemed necessary).
+
+\includegraphics[width=15cm,keepaspectratio]{ER.png}
+
+\pagebreak
+
+\section{(2) The SQL statements formulated and used to create the database.}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=sql,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{lstlisting}
+CREATE TABLE `match` (
+  mid        INT AUTO_INCREMENT,
+  date_time  DATETIME NOT NULL,
+  stadium    VARCHAR(255) NOT NULL,
+  home_tid   INT,
+  home_goals INT,
+  away_tid   INT,
+  away_goals INT,
+  PRIMARY KEY(mid)
+);
+
+CREATE TABLE team (
+  tid        INT AUTO_INCREMENT,
+  name       VARCHAR(255) NOT NULL,
+  city       VARCHAR(255),
+  captain_id INT,
+  PRIMARY KEY(tid)
+);
+
+CREATE TABLE player (
+  pid         INT AUTO_INCREMENT,
+  name        VARCHAR(255) NOT NULL,
+  position    VARCHAR(255),
+  dob         DATE,
+  current_tid INT,
+  start_date  DATE NOT NULL,
+  PRIMARY KEY(pid)
+);
+
+CREATE TABLE played_in (
+  tid     INT,
+  mid     INT,
+  pid     INT,
+  goals   INT,
+  minutes INT,
+  PRIMARY KEY(tid, mid, pid)
+);
+
+CREATE TABLE previous_teams (
+  tid        INT,
+  pid        INT,
+  start_date DATE,
+  end_date   DATE,
+  PRIMARY KEY(tid, pid, start_date)
+);
+
+ALTER TABLE `match`
+  ADD FOREIGN KEY(home_tid) REFERENCES team(tid),
+  ADD FOREIGN KEY(away_tid) REFERENCES team(tid);
+
+ALTER TABLE team
+  ADD FOREIGN KEY(captain_id) REFERENCES player(pid);
+
+ALTER TABLE player
+  ADD FOREIGN KEY(current_tid) REFERENCES team(tid);
+
+ALTER TABLE played_in
+  ADD FOREIGN KEY(tid) REFERENCES team(tid),
+  ADD FOREIGN KEY(mid) REFERENCES `match`(mid),
+  ADD FOREIGN KEY(pid) REFERENCES player(pid);
+
+ALTER TABLE previous_teams
+  ADD FOREIGN KEY(tid) REFERENCES team(tid),
+  ADD FOREIGN KEY(pid) REFERENCES player(pid);
+
+\end{lstlisting}
+
+\section{(3) The SQL statements formulated to express the required queries and transactions mentioned.}
+
+1)
+\begin{lstlisting}
+SELECT dob, position
+FROM player
+WHERE LEFT(name, 1) = 'T';
+\end{lstlisting}{}
+
+2)
+\begin{lstlisting}
+SELECT player.name
+FROM player, team
+WHERE current_tid = tid AND tid = 2;
+\end{lstlisting}{}
+
+3)
+\begin{lstlisting}
+SELECT player.name, pid, captain_id
+FROM player, team
+WHERE pid = captain_id AND LEFT(player.name, 1) = 'J';
+\end{lstlisting}{}
+
+\pagebreak
+
+4)
+\begin{lstlisting}
+SELECT date_time, stadium
+FROM `match`
+WHERE home_goals = away_goals
+\end{lstlisting}{}
+
+5) TO FIX
+\begin{lstlisting}
+SELECT COUNT(goals)
+FROM played_in, match
+WHERE date_time LIKE '2019%';
+\end{lstlisting}{}
+
+6)
+\begin{lstlisting}
+SELECT DISTINCT name, player.pid
+FROM player, played_in
+WHERE goals = 0 AND player.pid = played_in.pid;
+\end{lstlisting}{}
+
+7)
+\begin{lstlisting}
+SELECT name, player.pid, goals
+FROM player, played_in;
+\end{lstlisting}{}
+
+\section{(4) Populate each table in the database with at least 10 representative and appropriate tuples. }
+
+\section{(5) For each relation R created in your database, report the result of the following SQL statement:}
+
+
+\end{document}
